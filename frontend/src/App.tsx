@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import SignInPage from "./pages/auth/sign-in";
+import { SignUpPage } from "./pages/auth/sign-up";
+import DashboardPage from "./pages/dashboard/dashboard";
+import ApiKeyPage from "./pages/dashboard/api-key-page";
+import WelcomePage from "./pages/auth/welcome";
+import LandingPage from "./pages/landing/landing-page";
+import DashboardLayout from "./pages/dashboard/dashboard-layout";
+import NotFoundPage from "./pages/not-found";
+import ApplicationPage from "./pages/dashboard/application/application-page";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <section className=" min-h-[100dvh] flex flex-col font-sans bg-grayscale-50 text-brand-950 antialiased">
+            <Routes>
+                <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/sign-up" element={<SignUpPage />} />
+                <Route path="/welcome" element={<WelcomePage />} />
+                <Route path="/dashboard" element={<DashboardLayout />}>
+                    <Route
+                        path="application/:title"
+                        element={<ApplicationPage />}
+                    />
+                    <Route path="api-key" element={<ApiKeyPage />} />
+                    <Route index element={<DashboardPage />} />
+                </Route>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+        </section>
+    );
 }
 
-export default App
+export default App;
