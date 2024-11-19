@@ -34,7 +34,7 @@ export default {
                 },
                 brand: {
                     500: "#b1ef72",
-                    700: "#2C64E3",
+                    700: "#609d2b",
                     900: "var(--brand900)",
                 },
                 background: "hsl(var(--background))",

@@ -6,6 +6,9 @@ const User = new mongoose.Schema<IUserDocument>({
         type: Date,
         default: new Date(),
     },
+    externalId: {
+        type: String,
+    },
     email: {
         type: String,
         required: [true, "Email is required!"],
@@ -20,3 +23,5 @@ const User = new mongoose.Schema<IUserDocument>({
         default: true,
     },
 });
+
+export default mongoose.model<IUserDocument>("User", User);

@@ -8,6 +8,7 @@ import LandingPage from "./pages/landing/landing-page";
 import DashboardLayout from "./pages/dashboard/dashboard-layout";
 import NotFoundPage from "./pages/not-found";
 import ApplicationPage from "./pages/dashboard/application/application-page";
+import { SignedIn } from "@clerk/clerk-react";
 
 function App() {
     return (
@@ -15,7 +16,15 @@ function App() {
             <Routes>
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
-                <Route path="/welcome" element={<WelcomePage />} />
+
+                <Route
+                    path="/welcome"
+                    element={
+                        <SignedIn>
+                            <WelcomePage />
+                        </SignedIn>
+                    }
+                />
                 <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route
                         path="application/:title"

@@ -21,7 +21,11 @@ export const NavBar = () => {
                     {isSignedIn ? (
                         <div className="flex gap-1.5">
                             <SignOutButton>
-                                <Button size="sm" variant="ghost" className="">
+                                <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="text-gray-600"
+                                >
                                     Sign Out
                                 </Button>
                             </SignOutButton>
