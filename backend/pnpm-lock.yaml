@@ -10,10 +10,13 @@ importers:
     dependencies:
       '@clerk/clerk-sdk-node':
         specifier: ^5.0.65
-        version: 5.0.65(react@18.3.1)
+        version: 5.0.66(react@18.3.1)
       '@clerk/express':
         specifier: ^1.3.14
-        version: 1.3.14(express@4.21.1)(react@18.3.1)
+        version: 1.3.15(express@4.21.1)(react@18.3.1)
+      backend:
+        specifier: 'file:'
+        version: file:(react@18.3.1)
       body-parser:
         specifier: ^1.20.3
         version: 1.20.3
@@ -31,7 +34,7 @@ importers:
         version: 4.21.1
       mongoose:
         specifier: ^8.8.1
-        version: 8.8.1
+        version: 8.8.2
       morgan:
         specifier: ^1.10.0
         version: 1.10.0
@@ -60,22 +63,22 @@ importers:
 
 packages:
 
-  '@clerk/backend@1.16.4':
-    resolution: {integrity: sha512-hYcA9SJzQ8gIdj9szSbQhYocRITgJ0lh7unaC37DEOs+ErCm87Sypf8P+C9aOKjLeFoFYVWzLkLA9imb/sqCiA==}
+  '@clerk/backend@1.17.0':
+    resolution: {integrity: sha512-rqeyF217p4GiUKmi+9/wIlWcW2ybaskcwohtSHuuuMmH+kW46ITGSymjka+1bcni/2mHNqxl6RmpQEGK2ncmtQ==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/clerk-sdk-node@5.0.65':
-    resolution: {integrity: sha512-YFpev1sp7no01mlRo6iD7V+uIqtLiPhgr2AOEG2hBJZyACRiWONnBsoJ4z7jbGkSqxrxkdrqq+vijeh3Q+Vabg==}
+  '@clerk/clerk-sdk-node@5.0.66':
+    resolution: {integrity: sha512-GNPHZTvpTWM23nat++vqGzrhW6jHWQyWKekT0JV2UYVWRHt6D07HNIRvKk/VCP9YUw7BJfBGWAdp9MJC960ELQ==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/express@1.3.14':
-    resolution: {integrity: sha512-vA81ntqw53AU3gT/bADU/BO6tMSHZQLZ7m2b9STKF/aw8J1105H50XRL3SFXwjr2BP4Xv5KaTF2fzpKqDOCyHQ==}
+  '@clerk/express@1.3.15':
+    resolution: {integrity: sha512-6BfbYe8R3LrtNdADAwWafpjsZi7GxVrCxG98Wq1G17VH2QNSsWPqbzz2TXTwkXQ007otb3Rxx84goD1VyBvY1g==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       express: ^4.17.0 || ^5.0.0
 
-  '@clerk/shared@2.14.0':
-    resolution: {integrity: sha512-JVDlHtnuN8LC6xJnWPaWrYChagUw9wDJBUChvIKNXmyNrWKLuqJa4l3Eqdd6iifOf42VMSy6GDW3xKeUTY/itQ==}
+  '@clerk/shared@2.15.0':
+    resolution: {integrity: sha512-aO1l9mYiz9ZVU8hOJKg5fTeyVVm2NLdGlwSROhOgWVzJ/0FcfmQfuMkiMC7ZwRUQb9jqdGj5Kdb4QxUFJNCkyA==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18 || ^19.0.0-0
@@ -186,6 +189,9 @@ packages:
 
   array-flatten@1.1.1:
     resolution: {integrity: sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==}
+
+  'backend@file:':
+    resolution: {directory: '', type: directory}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -514,8 +520,8 @@ packages:
       socks:
         optional: true
 
-  mongoose@8.8.1:
-    resolution: {integrity: sha512-l7DgeY1szT98+EKU8GYnga5WnyatAu+kOQ2VlVX1Mxif6A0Umt0YkSiksCiyGxzx8SPhGe9a53ND1GD4yVDrPA==}
+  mongoose@8.8.2:
+    resolution: {integrity: sha512-jCTSqDANfRzk909v4YoZQi7jlGRB2MTvgG+spVBc/BA4tOs1oWJr//V6yYujqNq9UybpOtsSfBqxI0dSOEFJHQ==}
     engines: {node: '>=16.20.1'}
 
   morgan@1.10.0:
@@ -766,9 +772,9 @@ packages:
 
 snapshots:
 
-  '@clerk/backend@1.16.4(react@18.3.1)':
+  '@clerk/backend@1.17.0(react@18.3.1)':
     dependencies:
-      '@clerk/shared': 2.14.0(react@18.3.1)
+      '@clerk/shared': 2.15.0(react@18.3.1)
       '@clerk/types': 4.34.0
       cookie: 0.7.0
       snakecase-keys: 5.4.4
@@ -777,20 +783,20 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/clerk-sdk-node@5.0.65(react@18.3.1)':
+  '@clerk/clerk-sdk-node@5.0.66(react@18.3.1)':
     dependencies:
-      '@clerk/backend': 1.16.4(react@18.3.1)
-      '@clerk/shared': 2.14.0(react@18.3.1)
+      '@clerk/backend': 1.17.0(react@18.3.1)
+      '@clerk/shared': 2.15.0(react@18.3.1)
       '@clerk/types': 4.34.0
       tslib: 2.4.1
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@clerk/express@1.3.14(express@4.21.1)(react@18.3.1)':
+  '@clerk/express@1.3.15(express@4.21.1)(react@18.3.1)':
     dependencies:
-      '@clerk/backend': 1.16.4(react@18.3.1)
-      '@clerk/shared': 2.14.0(react@18.3.1)
+      '@clerk/backend': 1.17.0(react@18.3.1)
+      '@clerk/shared': 2.15.0(react@18.3.1)
       '@clerk/types': 4.34.0
       express: 4.21.1
       tslib: 2.4.1
@@ -798,7 +804,7 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/shared@2.14.0(react@18.3.1)':
+  '@clerk/shared@2.15.0(react@18.3.1)':
     dependencies:
       '@clerk/types': 4.34.0
       dequal: 2.0.3
@@ -917,6 +923,29 @@ snapshots:
   arg@4.1.3: {}
 
   array-flatten@1.1.1: {}
+
+  backend@file:(react@18.3.1):
+    dependencies:
+      '@clerk/clerk-sdk-node': 5.0.66(react@18.3.1)
+      '@clerk/express': 1.3.15(express@4.21.1)(react@18.3.1)
+      body-parser: 1.20.3
+      cors: 2.8.5
+      crypto: 1.0.1
+      dotenv: 16.4.5
+      express: 4.21.1
+      mongoose: 8.8.2
+      morgan: 1.10.0
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-providers'
+      - '@mongodb-js/zstd'
+      - gcp-metadata
+      - kerberos
+      - mongodb-client-encryption
+      - react
+      - react-dom
+      - snappy
+      - socks
+      - supports-color
 
   balanced-match@1.0.2: {}
 
@@ -1222,7 +1251,7 @@ snapshots:
       bson: 6.9.0
       mongodb-connection-string-url: 3.0.1
 
-  mongoose@8.8.1:
+  mongoose@8.8.2:
     dependencies:
       bson: 6.9.0
       kareem: 2.6.3

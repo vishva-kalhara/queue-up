@@ -1,17 +1,28 @@
 import { useAuth } from "@clerk/clerk-react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { API_URL } from "@/services";
+import LoadingSpinner from "@/components/loading-spinner";
 
 const DashboardLayout = () => {
-    const { isSignedIn, isLoaded, userId } = useAuth();
-    const navigate = useNavigate();
+    const { getToken } = useAuth();
 
-    if (isLoaded && !isSignedIn) navigate("/sign-in");
+    const { isFetching } = useQuery({
+        queryKey: ["logged-user"],
+        queryFn: async () => {
+            const res = await fetch(`${API_URL}/users/sync-user-with-db`, {
+                headers: {
+                    Authorization: `Bearer ${await getToken()}`,
+                },
+            });
+            return (await res.json()) as { isSynced: boolean };
+        },
+        refetchOnWindowFocus: false,
+    });
 
-    // const { data } = useQuery({
-    //     // queryKey: ["logged-user"],
-    //     queryFn: () => {},
-    // });
+    if (isFetching) {
+        return <LoadingSpinner />; // Show a spinner while loading
+    }
 
     return <Outlet />;
 };

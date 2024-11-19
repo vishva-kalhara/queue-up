@@ -1,54 +1,60 @@
 import Heading from "@/components/heading";
 import LoadingSpinner from "@/components/loading-spinner";
 import { NavBar } from "@/components/nav-bar";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useAuth, useUser } from "@clerk/clerk-react";
-import { useEffect } from "react";
-import { IUserDocument } from "@/types/user-types";
-import { API_URL } from "@/services";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import axios from "axios";
+// import { Button } from "@/components/ui/button";
+// import { useAuth, useUser } from "@clerk/clerk-react";
+// import { IUserDocument } from "@/types/user-types";
+// import { API_URL } from "@/services";
+// import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 
-type res = { success: boolean; user: IUserDocument };
+// type res = { success: boolean; user: IUserDocument };
 
 const WelcomePage = () => {
-    const { userId: externalId } = useAuth();
-    const { user } = useUser();
-    const queryClient = useQueryClient();
-    const { getToken } = useAuth();
+    // const { data, isSuccess, isFetching } = useQuery({
+    //     queryKey: ["logged-user"],
+    //     queryFn: async () => {
+    //         const res = await fetch(`${API_URL}/users/sync-user-with-db`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${await getToken()}`,
+    //             },
+    //         });
+    //         return (await res.json()) as { isSynced: boolean };
+    //     },
+    //     // staleTime: 1000 * 60 * 5,
+    // });
 
-    const { data } = useQuery({
-        queryKey: ["logged-user"],
-        queryFn: async () => {
-            console.log(API_URL + "/users/sync-user-with-db");
-            const res = await fetch(`${API_URL}/users/sync-user-with-db`, {
-                headers: {
-                    Authorization: `Bearer ${await getToken()}`,
-                },
-            });
-            return await res.json();
-        },
-        // refetchInterval: 3000,
-    });
+    // useEffect(() => {
+    //     console.log(data);
+    //     if (isSuccess && data?.isSynced) navigate("/dashboard");
+    // }, [isSuccess, isFetching]);
 
-    const { mutate, isPending } = useMutation({
-        mutationFn: async () => {
-            const response = await axios.post(`${API_URL}/users`, {
-                externalId,
-                email: user?.emailAddresses[0].emailAddress,
-            });
-            return response.data as res;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ["logged-user"],
-            });
-        },
-    });
+    // useEffect(() => {
+    //     console.log(data);
+    //     console.log("isFetching", isFetching);
+    //     console.log("isSuccess", isSuccess);
+    //     console.log("isSynced", data?.isSynced);
+    //     if (!isFetching && isSuccess && data?.isSynced) {
+    //         return navigate("/dashboard", { replace: true });
+    //     }
+    // }, [isFetching, isSuccess, data?.isSynced]);
 
-    useEffect(() => {
-        // mutate();
-    }, []);
+    // const { mutate, isPending } = useMutation({
+    //     mutationFn: async () => {
+    //         const response = await axios.post(`${API_URL}/users`, {
+    //             externalId,
+    //             email: user?.emailAddresses[0].emailAddress,
+    //         });
+    //         return response.data as res;
+    //     },
+    //     onSuccess: () => {
+    //         queryClient.invalidateQueries({
+    //             queryKey: ["logged-user"],
+    //         });
+    //     },
+    // });
 
     return (
         <>
@@ -62,16 +68,16 @@ const WelcomePage = () => {
                     Just a moment while we set things up for you.
                 </p>
                 <div className="mx-auto flex mt-20">
-                    <Button
+                    {/* <Button
                         onClick={() => {
                             mutate();
                         }}
                         disabled={isPending}
                     >
                         Trigger
-                    </Button>
+                    </Button> */}
                 </div>
-                {JSON.stringify(data)}
+                {/* {JSON.stringify(data)} */}
             </div>
         </>
     );

@@ -2,8 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "../utils/appError";
 import userSchema from "../schemas/user";
 import { randomBytes } from "crypto";
-import { ExpressRequestWithAuth, getAuth } from "@clerk/express";
-import user from "../schemas/user";
+import { clerkClient, ExpressRequestWithAuth, getAuth } from "@clerk/express";
 
 export const createUser = async (
     req: Request,
@@ -43,10 +42,23 @@ export const syncUserWithDB = async (
 ) => {
     const { userId: externalId } = getAuth(req);
 
-    const loggedUser = await user.findOne({ externalId });
+    let loggedUser = await userSchema.findOne({ externalId });
+
+    if (!loggedUser) {
+        const apiKey = randomBytes(16 / 2).toString("hex");
+
+        const user = await clerkClient.users.getUser(externalId!);
+
+        loggedUser = await userSchema.create({
+            email: user.emailAddresses[0].emailAddress,
+            externalId,
+            apiKey,
+            isActive: true,
+        });
+    }
 
     res.status(200).json({
-        success: loggedUser ? true : false,
+        isSynced: loggedUser ? true : false,
     });
 };
 
@@ -57,7 +69,7 @@ export const getMe = async (
 ) => {
     const { userId: externalId } = getAuth(req);
 
-    const loggedUser = await user.findOne({ externalId });
+    const loggedUser = await userSchema.findOne({ externalId });
 
-    res.json({ success: true, user: loggedUser });
+    res.json({ success: loggedUser ? true : false, user: loggedUser });
 };

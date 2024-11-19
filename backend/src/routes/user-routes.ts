@@ -5,16 +5,16 @@ import {
     syncUserWithDB,
 } from "../controllers/user-controller";
 import { requireAuth } from "@clerk/express";
-import {
-    ClerkExpressRequireAuth,
-    ClerkExpressWithAuth,
-} from "@clerk/clerk-sdk-node";
 
 const userRoutes = Router();
 
 userRoutes.post("/", createUser);
 
-userRoutes.use(requireAuth());
+userRoutes.use(
+    requireAuth({
+        signInUrl: "/sign-in",
+    })
+);
 
 userRoutes.get("/me", getMe);
 userRoutes.get("/sync-user-with-db", syncUserWithDB);

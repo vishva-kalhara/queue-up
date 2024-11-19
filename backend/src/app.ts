@@ -1,6 +1,11 @@
 import express from "express";
 import morgan from "morgan";
-import { clerkMiddleware, getAuth, requireAuth } from "@clerk/express";
+import {
+    clerkClient,
+    clerkMiddleware,
+    getAuth,
+    requireAuth,
+} from "@clerk/express";
 import userRoutes from "./routes/user-routes";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -27,17 +32,15 @@ export function createApp() {
     app.use(bodyParser());
 
     app.use(clerkMiddleware());
-    // app.use(
-    //     clerkMiddleware({
-    //         authorizedParties: ["http://localhost:5173/"],
-    //     })
-    // );
 
-    // app.get("/api/v1/test", requireAuth(), (req, res) => {
-    //     const auth = getAuth(req);
+    app.get("/api/v1/test", requireAuth(), async (req, res) => {
+        const { userId } = getAuth(req);
 
-    //     res.json(auth);
-    // });
+        // if(!userId) return res.status(404).json({ status: 'fail' });
+
+        const user = await clerkClient.users.getUser(userId!);
+        res.status(200).json({ user });
+    });
 
     app.use("/api/v1/users", userRoutes);
 
