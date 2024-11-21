@@ -28,8 +28,15 @@ export const createApplication =
     async (req: Request, res: Response, next: NextFunction) => {
 
         if (!req.body.title)
-            return next(new AppError('Title is requered!', 400));
+            return next(new AppError('Title is required!', 400));
 
+        // Check whether there is already an app with the same title
+        const hasApp = await ApplicationSchema.findOne({
+            title: req.body.title,
+        })
+        if(hasApp) return next(new AppError('There is already an application with the same title!', 400));
+
+        // Generate app Secret
         const appSecretKey = randomBytes(16 / 2).toString("hex");
 
         const {userId: externalId} = getAuth(req);
