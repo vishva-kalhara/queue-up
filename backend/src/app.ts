@@ -11,6 +11,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import AppError from "./utils/appError";
 import errorMiddleware from "./middlewares/error-middleware";
+import applicationRouter from "./routes/application-router";
 
 export function createApp() {
     const app = express();
@@ -43,6 +44,14 @@ export function createApp() {
     });
 
     app.use("/api/v1/users", userRoutes);
+
+    userRoutes.use(
+        requireAuth({
+            signInUrl: "/sign-in",
+        })
+    );
+
+    app.use("/api/v1/applications", applicationRouter);
 
     app.all("*", (req, _res, next) => {
         next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
