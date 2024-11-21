@@ -3,7 +3,6 @@ import SignInPage from "./pages/auth/sign-in";
 import { SignUpPage } from "./pages/auth/sign-up";
 import DashboardPage from "./pages/dashboard/dashboard";
 import ApiKeyPage from "./pages/dashboard/api-key-page";
-import WelcomePage from "./pages/auth/welcome";
 import LandingPage from "./pages/landing/landing-page";
 import DashboardLayout from "./pages/dashboard/dashboard-layout";
 import NotFoundPage from "./pages/not-found";
@@ -16,16 +15,14 @@ function App() {
             <Routes>
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
-
                 <Route
-                    path="/welcome"
+                    path="/dashboard"
                     element={
                         <SignedIn>
-                            <WelcomePage />
+                            <DashboardLayout />
                         </SignedIn>
                     }
-                />
-                <Route path="/dashboard" element={<DashboardLayout />}>
+                >
                     <Route
                         path="application/:title"
                         element={<ApplicationPage />}

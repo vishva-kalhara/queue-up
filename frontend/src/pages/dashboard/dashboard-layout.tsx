@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "@/services";
 import LoadingSpinner from "@/components/loading-spinner";
+import DashboardNav from "@/pages/dashboard/dashboard-nav.tsx";
 
 const DashboardLayout = () => {
     const { getToken } = useAuth();
@@ -24,7 +25,7 @@ const DashboardLayout = () => {
         return <LoadingSpinner />; // Show a spinner while loading
     }
 
-    return <Outlet />;
+    return <><DashboardNav /><Outlet /></>;
 };
 
 export default DashboardLayout;

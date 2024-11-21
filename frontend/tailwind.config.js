@@ -5,7 +5,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                poetsen: ["Poetsen One", "sans-serif"], // Add your font
+                poetsen: ["Poetsen One", "sans-serif"],
+                poppins: ["Poppins", "sans-serif"],
             },
             borderRadius: {
                 lg: "var(--radius)",
