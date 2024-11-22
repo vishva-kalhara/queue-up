@@ -1,14 +1,16 @@
-import mongoose from "mongoose";
-import {IApplicationDoc} from "../types/application-types";
+import mongoose, { Query } from "mongoose";
+import { IApplicationDoc } from "../types/application-types";
+import { IUserDocument } from "../types/user-types";
 
-const ApplicationSchema = new mongoose.Schema<IApplicationDoc>({
+const ApplicationSchema = new mongoose.Schema<IApplicationDoc>(
+    {
         title: {
             type: String,
-            required: [true, 'Title is required'],
+            required: [true, "Title is required"],
         },
         appSecretKey: {
             type: String,
-            required: [true, 'Title is required'],
+            required: [true, "Title is required"],
         },
         isListening: {
             type: Boolean,
@@ -21,13 +23,16 @@ const ApplicationSchema = new mongoose.Schema<IApplicationDoc>({
         user: {
             type: mongoose.Schema.ObjectId,
             ref: "User",
-            required: [true, 'user is required'],
-        }
+            required: [true, "user is required"],
+        },
     },
     {
-        toJSON: {virtuals: true},
-        toObject: {virtuals: true},
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
     }
 );
 
-export default mongoose.model<IApplicationDoc>("Application", ApplicationSchema);
+export default mongoose.model<IApplicationDoc>(
+    "Application",
+    ApplicationSchema
+);

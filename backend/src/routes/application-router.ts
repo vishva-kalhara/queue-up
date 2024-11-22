@@ -1,7 +1,7 @@
 import {
     createApplication,
     deleteApplication,
-    getAllApplications,
+    getMyApplications,
     getOneApplication,
     updateApplication,
 } from "../controllers/application-controller";
@@ -11,7 +11,8 @@ const applicationRouter = require("express").Router();
 
 applicationRouter.use(protect);
 
-applicationRouter.route("/").get(getAllApplications).post(createApplication);
+applicationRouter.route("/my-apps").get(getMyApplications);
+applicationRouter.route("/").post(createApplication);
 
 applicationRouter
     .route("/:id")

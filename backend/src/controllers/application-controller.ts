@@ -4,16 +4,36 @@ import ApplicationSchema from "../schemas/application";
 import { randomBytes } from "crypto";
 import { getAuth } from "@clerk/express";
 import userSchema from "../schemas/user";
+import { IApplicationDoc } from "../types/application-types";
+import user from "../schemas/user";
+import mongoose from "mongoose";
 
-export const getAllApplications = async (
+export const getMyApplications = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    res.status(200).json({
-        success: "fail",
-        message: "(GET) / endpoint is under construction.",
-    });
+    try {
+        const { userId } = getAuth(req);
+
+        const logged = await user.findOne({
+            externalId: userId,
+        });
+
+        const apps = await ApplicationSchema.find()
+            .where("user")
+            .equals(logged?.id)
+            .populate("user", "id");
+
+        res.status(200).json({
+            success: "success",
+            count: apps.length,
+            apps,
+        });
+    } catch (error) {
+        console.log(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
 };
 
 export const getOneApplication = (
@@ -33,14 +53,6 @@ export const createApplication = async (
     next: NextFunction
 ) => {
     try {
-        if (!("user" in req)) {
-            console.error(
-                "The 'user' property does not exist on req. Ensure the interface is extended."
-            );
-        } else {
-            console.log("The 'user' property is available on req:", req.user);
-        }
-
         const { userId: externalId } = getAuth(req);
 
         console.log(externalId);
@@ -48,10 +60,17 @@ export const createApplication = async (
         if (!req.body.title)
             return next(new AppError("Title is required!", 400));
 
-        // Check whether there is already an app with the same title
-        const hasApp = await ApplicationSchema.findOne({
-            title: req.body.title,
+        const logged = await user.findOne({
+            externalId,
         });
+
+        // Check whether there is already an app with the same title
+        const hasApp = await ApplicationSchema.findOne()
+            .where("user", logged?.id)
+            .where("title", req.body.title)
+            .populate("user", "id");
+
+        console.log(hasApp);
 
         if (hasApp)
             return next(
@@ -77,7 +96,7 @@ export const createApplication = async (
             application,
         });
     } catch (error) {
-        next(new AppError("Unhandled exception occured!", 500));
+        return next(new AppError("Unhandled exception occured!", 500));
     }
 };
 
