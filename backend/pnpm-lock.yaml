@@ -32,6 +32,9 @@ importers:
       express:
         specifier: ^4.21.1
         version: 4.21.1
+      express-serve-static-core:
+        specifier: ^0.1.1
+        version: 0.1.1
       mongoose:
         specifier: ^8.8.1
         version: 8.8.2
@@ -339,6 +342,9 @@ packages:
   etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+
+  express-serve-static-core@0.1.1:
+    resolution: {integrity: sha512-phQFPo1vVwBLOjDq+EspUY6PpWZIs/s62Lvu6QuReViQ9j9ANBnMqPBRwdxs3zxNmpMJ9KBKrmMqCjMwHnGRyQ==}
 
   express@4.21.1:
     resolution: {integrity: sha512-YSFlK1Ee0/GC8QaO91tHcDxJiE/X4FbpAyQWkxAvG6AXCuR65YzK8ua6D9hvi/TzUfZMpc+BwuM1IPw8fmQBiQ==}
@@ -933,6 +939,7 @@ snapshots:
       crypto: 1.0.1
       dotenv: 16.4.5
       express: 4.21.1
+      express-serve-static-core: 0.1.1
       mongoose: 8.8.2
       morgan: 1.10.0
     transitivePeerDependencies:
@@ -1078,6 +1085,8 @@ snapshots:
   escape-html@1.0.3: {}
 
   etag@1.8.1: {}
+
+  express-serve-static-core@0.1.1: {}
 
   express@4.21.1:
     dependencies:

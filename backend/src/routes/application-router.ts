@@ -1,19 +1,22 @@
 import {
-    createApplication, deleteApplication,
+    createApplication,
+    deleteApplication,
     getAllApplications,
     getOneApplication,
-    updateApplication
+    updateApplication,
 } from "../controllers/application-controller";
+import { protect } from "../middlewares/protect";
 
 const applicationRouter = require("express").Router();
 
-applicationRouter.route('/')
-    .get(getAllApplications)
-    .post(createApplication)
+applicationRouter.use(protect);
 
-applicationRouter.route('/:id')
+applicationRouter.route("/").get(getAllApplications).post(createApplication);
+
+applicationRouter
+    .route("/:id")
     .get(getOneApplication)
     .patch(updateApplication)
-    .delete(deleteApplication)
+    .delete(deleteApplication);
 
 export default applicationRouter;

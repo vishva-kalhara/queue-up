@@ -4,8 +4,7 @@ import { IUserDocument } from "./userTypes";
 declare global {
     namespace Express {
         interface Request {
-            // user?: IUserDocument;
-            //  auth: AuthObject;
+            user?: { id: string; role: string }; // Adjust the structure based on your needs
         }
     }
 }
