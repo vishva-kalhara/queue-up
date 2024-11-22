@@ -1,12 +1,19 @@
 import { useAuth } from "@clerk/clerk-react";
-import { Outlet } from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "@/services";
 import LoadingSpinner from "@/components/loading-spinner";
 import DashboardNav from "@/pages/dashboard/dashboard-nav.tsx";
+import {useEffect} from "react";
 
 const DashboardLayout = () => {
-    const { getToken } = useAuth();
+    const {getToken, isSignedIn} = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // isSignedIn can be undefined
+        if (isSignedIn == false) navigate('/sign-in');
+    }, [isSignedIn]);
 
     const { isFetching } = useQuery({
         queryKey: ["logged-user"],
