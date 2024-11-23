@@ -4,15 +4,6 @@ import { ChartLine, Settings2, Table } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-// const AppTab = ({page}:{ page : 'overview' | 'waitlist' | 'settings'}
-// ) => {
-//     return (
-//         <Button variant="outline" className={page == 'overview' ? "text-gray-500" : ''} size="sm">
-//                     <ChartLine className="size-4" />
-//                 </Button>
-//     )
-// }
-
 const AppTabs = () => {
     const param = useParams();
     const location = useLocation();
