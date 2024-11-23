@@ -1,48 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useApplication } from "@/hooks/use-application";
-import { API_URL } from "@/services";
-import { useAuth } from "@clerk/clerk-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { ArrowRight, Clipboard, RefreshCcw, Trash2 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import RegenerateAppSecretModal from "./regenerate-app-secret-modal";
+import { toast } from "@/hooks/use-toast";
 
 const AppSettings = () => {
     const app = useApplication();
-    const { getToken } = useAuth();
-    const queryClient = useQueryClient();
 
-    const { appId } = useParams();
+    const [isRegenerateSecretModal, setIsRegenerateSecretModal] =
+        useState(false);
 
     const copySecret = () => {
         navigator.clipboard.writeText(app.appSecretKey);
+        toast({
+            description: "App Secret copied to clipboard.",
+        });
     };
-
-    const { mutate: regerateToken } = useMutation({
-        mutationFn: async () => {
-            const newToken = uuidv4();
-            console.log(newToken);
-            return await axios.patch(
-                `${API_URL}/applications/${appId}`,
-                {
-                    appSecretKey: newToken,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${await getToken()}`,
-                    },
-                }
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["app"] });
-        },
-        onError: (err) => {
-            console.log(err);
-        },
-    });
 
     return (
         <div className="px-8 lg:px-0 py-10 lg:py-16  max-w-4xl mx-auto flex flex-col gap-8">
@@ -63,7 +38,7 @@ const AppSettings = () => {
                     <Button
                         size="sm"
                         variant="secondary"
-                        onClick={() => regerateToken()}
+                        onClick={() => setIsRegenerateSecretModal(true)}
                     >
                         <RefreshCcw className="size-4" />
                         {"Regenerate"}
@@ -99,6 +74,10 @@ const AppSettings = () => {
                     </Button>
                 </div>
             </Card>
+            <RegenerateAppSecretModal
+                isOpen={isRegenerateSecretModal}
+                setIsOpen={setIsRegenerateSecretModal}
+            />
         </div>
     );
 };

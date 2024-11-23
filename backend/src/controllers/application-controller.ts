@@ -124,9 +124,6 @@ export const updateApplication = async (
     next: NextFunction
 ) => {
     try {
-        // const filteredData: IApplicationDoc = req.body
-        console.log(req.body);
-
         const updatedApp = await ApplicationSchema.findOneAndUpdate(
             {
                 _id: req.params.id,
