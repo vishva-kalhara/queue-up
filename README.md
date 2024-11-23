@@ -2,7 +2,7 @@
 
 Lightweight SaaS platform that empowers developers and startups to effortlessly collect and manage waitlist emails for their upcoming projects. Designed with simplicity and scalability in mind, it provides APIs and an intuitive dashboard to streamline pre-launch user acquisition.
 
-<br />
+<!-- <br /> -->
 
 # 📦 Technologies
 
@@ -14,7 +14,7 @@ Lightweight SaaS platform that empowers developers and startups to effortlessly 
 -   `TailwindCSS`
 -   `Tanstack Query`
 
-<br />
+<!-- <br /> -->
 
 # 🦄 Features
 
@@ -34,7 +34,7 @@ Here is what you can do with Queue Up:
 
 -   **Free Tier:** Start with a free plan that includes essential features to kick off your waitlist campaigns.
 
-<br />
+<!-- <br /> -->
 
 # 📚 What I learned
 
@@ -50,7 +50,7 @@ Here is what you can do with Queue Up:
 
 -   **Building in Public:** Sharing progress and gathering feedback through platforms like TikTok to improve the product iteratively.
 
-<br />
+<!-- <br /> -->
 
 # ⚖️ License
 
