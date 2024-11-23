@@ -1,11 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useApplication } from "@/hooks/use-application";
+import { API_URL } from "@/services";
+import { useAuth } from "@clerk/clerk-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { ArrowRight, Clipboard, RefreshCcw, Trash2 } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 const AppSettings = () => {
+    const app = useApplication();
+    const { getToken } = useAuth();
+    const queryClient = useQueryClient();
+
+    const { appId } = useParams();
+
     const copySecret = () => {
-        navigator.clipboard.writeText("456789");
+        navigator.clipboard.writeText(app.appSecretKey);
     };
+
+    const { mutate: regerateToken } = useMutation({
+        mutationFn: async () => {
+            const newToken = uuidv4();
+            console.log(newToken);
+            return await axios.patch(
+                `${API_URL}/applications/${appId}`,
+                {
+                    appSecretKey: newToken,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${await getToken()}`,
+                    },
+                }
+            );
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["app"] });
+        },
+        onError: (err) => {
+            console.log(err);
+        },
+    });
 
     return (
         <div className="px-8 lg:px-0 py-10 lg:py-16  max-w-4xl mx-auto flex flex-col gap-8">
@@ -23,7 +60,11 @@ const AppSettings = () => {
                         <Clipboard className="size-4" />
                         Copy Secret
                     </Button>
-                    <Button size="sm" variant="secondary">
+                    <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => regerateToken()}
+                    >
                         <RefreshCcw className="size-4" />
                         {"Regenerate"}
                     </Button>

@@ -42,6 +42,8 @@ Here is what you can do with Queue Up:
 
 -   **Authentication with Clerk:** Integrating Clerk as the authentication provider for secure and seamless user account management.
 
+-   **React Context API:** Utilizing React Context API to access application data globally across components.
+
 -   **State Management with Tanstack Query:** Using TanStack Query to fetch, cache, and update server-side data in real-time.
 
 -   **Developer-Focused Design:** Crafting a platform tailored to developers, emphasizing flexibility through headless UI integration.

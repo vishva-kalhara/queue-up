@@ -45,11 +45,11 @@ export function createApp() {
 
     app.use("/api/v1/users", userRoutes);
 
-    userRoutes.use(
-        requireAuth({
-            signInUrl: "/sign-in",
-        })
-    );
+    // userRoutes.use(
+    //     requireAuth({
+    //         signInUrl: "/sign-in",
+    //     })
+    // );
 
     app.use("/api/v1/applications", applicationRouter);
 

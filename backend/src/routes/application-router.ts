@@ -14,6 +14,8 @@ applicationRouter.use(protect);
 applicationRouter.route("/my-apps").get(getMyApplications);
 applicationRouter.route("/").post(createApplication);
 
+// applicationRouter.route("/:id/re-generate-secret").patch(regenerateAppSecret);
+
 applicationRouter
     .route("/:id")
     .get(getOneApplication)
