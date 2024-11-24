@@ -36,15 +36,35 @@ export const getMyApplications = async (
     }
 };
 
-export const getOneApplication = (
+export const getOneApplication = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    res.status(200).json({
-        success: "fail",
-        message: "(GET) /:id endpoint is under construction.",
-    });
+    try {
+        const { userId } = getAuth(req);
+        const loggedUser = await user.findOne({
+            externalId: userId,
+        });
+        const { id } = req.params;
+
+        // console.log(loggedUser);
+
+        const app = await ApplicationSchema.findOne()
+            .where("user", loggedUser?.id)
+            .where("_id", id)
+            .populate("user", "_id");
+
+        if (!app) return res.redirect("/not-found");
+
+        return res.status(200).json({
+            status: "success",
+            app,
+        });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
 };
 
 export const createApplication = async (
@@ -69,8 +89,6 @@ export const createApplication = async (
             .where("user", logged?.id)
             .where("title", req.body.title)
             .populate("user", "id");
-
-        console.log(hasApp);
 
         if (hasApp)
             return next(
@@ -100,15 +118,30 @@ export const createApplication = async (
     }
 };
 
-export const updateApplication = (
+export const updateApplication = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    res.status(200).json({
-        success: "fail",
-        message: "(PATCH) /:id endpoint is under construction.",
-    });
+    try {
+        const updatedApp = await ApplicationSchema.findOneAndUpdate(
+            {
+                _id: req.params.id,
+            },
+            req.body,
+            {
+                new: true,
+            }
+        );
+
+        res.status(200).json({
+            success: "success",
+            app: updatedApp,
+        });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
 };
 
 export const deleteApplication = (

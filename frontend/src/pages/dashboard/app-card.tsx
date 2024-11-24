@@ -24,7 +24,7 @@ export const DashboardAppCard = ({ app }: { app: IApplicationDoc }) => {
                 </p>
             </div>
             <div className="flex justify-between mt-8">
-                <Link to={`/dashboard/${app._id}`}>
+                <Link to={`/application/${app._id}`}>
                     <Button className="" variant="outline" size="sm">
                         Overview <ArrowRight className="size-4" />
                     </Button>

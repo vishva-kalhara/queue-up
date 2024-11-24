@@ -2,7 +2,7 @@
 
 Lightweight SaaS platform that empowers developers and startups to effortlessly collect and manage waitlist emails for their upcoming projects. Designed with simplicity and scalability in mind, it provides APIs and an intuitive dashboard to streamline pre-launch user acquisition.
 
-<br />
+<!-- <br /> -->
 
 # 📦 Technologies
 
@@ -14,7 +14,7 @@ Lightweight SaaS platform that empowers developers and startups to effortlessly 
 -   `TailwindCSS`
 -   `Tanstack Query`
 
-<br />
+<!-- <br /> -->
 
 # 🦄 Features
 
@@ -34,13 +34,15 @@ Here is what you can do with Queue Up:
 
 -   **Free Tier:** Start with a free plan that includes essential features to kick off your waitlist campaigns.
 
-<br />
+<!-- <br /> -->
 
 # 📚 What I learned
 
 -   **API Design:** Designing RESTful endpoints for scalability and ease of integration.
 
 -   **Authentication with Clerk:** Integrating Clerk as the authentication provider for secure and seamless user account management.
+
+-   **React Context API:** Utilizing React Context API to access application data globally across components.
 
 -   **State Management with Tanstack Query:** Using TanStack Query to fetch, cache, and update server-side data in real-time.
 
@@ -50,7 +52,7 @@ Here is what you can do with Queue Up:
 
 -   **Building in Public:** Sharing progress and gathering feedback through platforms like TikTok to improve the product iteratively.
 
-<br />
+<!-- <br /> -->
 
 # ⚖️ License
 

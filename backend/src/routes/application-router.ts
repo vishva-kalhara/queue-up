@@ -6,6 +6,7 @@ import {
     updateApplication,
 } from "../controllers/application-controller";
 import { protect } from "../middlewares/protect";
+import waitlistRouter from "./waitlist-router";
 
 const applicationRouter = require("express").Router();
 
@@ -13,6 +14,9 @@ applicationRouter.use(protect);
 
 applicationRouter.route("/my-apps").get(getMyApplications);
 applicationRouter.route("/").post(createApplication);
+
+// Forward request to waitlist router
+applicationRouter.use("/:id/app-waitlist", waitlistRouter);
 
 applicationRouter
     .route("/:id")

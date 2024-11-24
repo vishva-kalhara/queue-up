@@ -1,22 +1,19 @@
 import { Router } from "express";
 import {
-    createUser,
     getMe,
     syncUserWithDB,
+    updateMe,
 } from "../controllers/user-controller";
 import { requireAuth } from "@clerk/express";
+import { protect } from "../middlewares/protect";
 
 const userRoutes = Router();
 
-userRoutes.post("/", createUser);
+userRoutes.get("/sync-user-with-db", syncUserWithDB);
 
-userRoutes.use(
-    requireAuth({
-        signInUrl: "/sign-in",
-    })
-);
+userRoutes.use(protect);
 
 userRoutes.get("/me", getMe);
-userRoutes.get("/sync-user-with-db", syncUserWithDB);
+userRoutes.patch("/update-me", updateMe);
 
 export default userRoutes;
