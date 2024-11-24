@@ -74,3 +74,33 @@ export const addUserToWaitlist = async (
         next(new AppError("Unhandled Exception", 500));
     }
 };
+
+export const getAppWaitlistData = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const appId = req.params.id;
+        if (!appId) return res.redirect("/dashboard");
+
+        const limit = req.query.limit ? Number(req.query.limit) : 25;
+        const page = req.query.page ? Number(req.query.page) : 1;
+
+        const data = await waitlist
+            .find()
+            .where("app", appId)
+            // .limit(limit)
+            // .skip(limit * (page - 1))
+            .populate("app", "_id");
+
+        res.status(200).json({
+            status: "success",
+            count: data.length,
+            data,
+        });
+    } catch (error) {
+        console.error(error);
+        next(new AppError("Unhandled Exception", 500));
+    }
+};

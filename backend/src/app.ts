@@ -12,7 +12,7 @@ import bodyParser from "body-parser";
 import AppError from "./utils/appError";
 import errorMiddleware from "./middlewares/error-middleware";
 import applicationRouter from "./routes/application-router";
-import waitlistRouter from "./routes/waitlist-touter";
+import waitlistRouter from "./routes/waitlist-router";
 
 export function createApp() {
     const app = express();
