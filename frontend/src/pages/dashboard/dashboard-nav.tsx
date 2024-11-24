@@ -1,6 +1,6 @@
 import { UserButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button.tsx";
-import { HeartIcon } from "lucide-react";
+import { HeartIcon, KeySquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@/hooks/use-media-query.ts";
 import { useState } from "react";
@@ -14,9 +14,16 @@ const DashboardNav = () => {
         <nav className="px-8 py-6 bg-gray-50 border-b-[1px] border-black border-opacity-5">
             <div className="flex justify-between max-w-4xl mx-auto ">
                 <div className="flex gap-2">
-                    <Button size="sm">Queue Up</Button>
+                    <Link to="/dashboard">
+                        <Button size="sm">Queue Up</Button>
+                    </Link>
                 </div>
                 <div className="flex items-center gap-2">
+                    <Link to="/dashboard/api-key">
+                        <Button className="size-8" variant={"outline"}>
+                            <KeySquare className="size-4" />
+                        </Button>
+                    </Link>
                     <Button
                         size="sm"
                         variant={"outline"}

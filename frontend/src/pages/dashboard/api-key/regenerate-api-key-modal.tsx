@@ -6,7 +6,6 @@ import { useAuth } from "@clerk/clerk-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 type props = {
@@ -14,8 +13,7 @@ type props = {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
-    const { appId } = useParams();
+const RegenerateAPIKeyModal = ({ isOpen, setIsOpen }: props) => {
     const { getToken } = useAuth();
     const queryClient = useQueryClient();
 
@@ -23,9 +21,9 @@ const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
         mutationFn: async () => {
             const newToken = uuidv4();
             return await axios.patch(
-                `${API_URL}/applications/${appId}`,
+                `${API_URL}/users/update-me`,
                 {
-                    appSecretKey: newToken,
+                    apiKey: newToken,
                 },
                 {
                     headers: {
@@ -35,14 +33,14 @@ const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
             );
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["app"] });
+            queryClient.invalidateQueries({ queryKey: ["user-api-key"] });
             setIsOpen(false);
             toast({
-                description: "App Secret regenerated.",
+                description: "User API Key regenerated.",
             });
         },
         onError: (err) => {
-            console.log(err);
+            console.error(err);
         },
     });
 
@@ -53,11 +51,12 @@ const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
                     <img src="/warning-logo.png" width={120} />
                 </div>
                 <h1 className="font-poppins font-semibold text-xl text-center mt-10 ">
-                    Regenerate App Secret Key
+                    Regenerate User API Key
                 </h1>
                 <p className="text-gray-500 text-sm/5 text-center max-w-prose mt-2">
-                    Application's unique Secret Key for authenticating API
-                    requests and managing waitlist data securely.
+                    If you regenerate this token, you must replace the
+                    Authorization headers in all your applications to ensure
+                    uninterrupted access.
                 </p>
                 <Button
                     className="mt-8 py-6"
@@ -77,4 +76,4 @@ const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
     );
 };
 
-export default RegenerateAppSecretModal;
+export default RegenerateAPIKeyModal;

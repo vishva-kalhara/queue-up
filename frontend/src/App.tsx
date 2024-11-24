@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import SignInPage from "./pages/auth/sign-in";
 import { SignUpPage } from "./pages/auth/sign-up";
 import DashboardPage from "./pages/dashboard/dashboard";
-import ApiKeyPage from "./pages/dashboard/api-key-page";
+import ApiKeyPage from "./pages/dashboard/api-key/api-key-page";
 import LandingPage from "./pages/landing/landing-page";
 import DashboardLayout from "./pages/dashboard/dashboard-layout";
 import NotFoundPage from "./pages/not-found";
