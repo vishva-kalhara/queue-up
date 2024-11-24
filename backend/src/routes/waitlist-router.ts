@@ -6,7 +6,8 @@ import {
 
 const waitlistRouter = Router({ mergeParams: true });
 
-waitlistRouter.route("/").post(addUserToWaitlist);
-waitlistRouter.route("/").get(getAppWaitlistData);
+waitlistRouter.route("/")
+    .get(getAppWaitlistData)
+    .post(addUserToWaitlist);
 
 export default waitlistRouter;

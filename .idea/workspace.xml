@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc3ca196-569a-45db-9075-7d50ff3ca583" name="Changes" comment="" />
+    <list default="true" id="cc3ca196-569a-45db-9075-7d50ff3ca583" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/waitlist-types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/waitlist-router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/waitlist-router.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/dashboard/application/app-waitlist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/application/app-waitlist.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/dashboard/application/application-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/dashboard/application/application-page.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,10 +19,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2pHWp7wh2W9YSN461Ett1PVRqo0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,8 +34,11 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "feature",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\webstorm_proj\\queue-up\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -46,6 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1732423667289</updated>
       <workItem from="1732423669884" duration="37000" />
+      <workItem from="1732442939437" duration="1050000" />
     </task>
     <servers />
   </component>

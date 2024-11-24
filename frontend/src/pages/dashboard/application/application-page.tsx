@@ -37,7 +37,6 @@ const ApplicationPage = () => {
     });
 
     useEffect(() => {
-        console.log(data?.data.app);
         if (!isFetching && isSuccess) setAppData(data?.data.app);
     }, [data, isFetching, isSuccess]);
 
