@@ -31,7 +31,7 @@ export function createApp() {
 
     app.use(express.json({ limit: "10kb" }));
 
-    app.use(bodyParser());
+    // app.use(express.json());
 
     app.use(clerkMiddleware());
 

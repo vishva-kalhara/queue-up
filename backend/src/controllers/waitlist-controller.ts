@@ -3,6 +3,8 @@ import AppError from "../utils/appError";
 import user from "../schemas/user";
 import application from "../schemas/application";
 import waitlist from "../schemas/waitlist";
+import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 export const addUserToWaitlist = async (
     req: Request,
@@ -84,19 +86,32 @@ export const getAppWaitlistData = async (
         const appId = req.params.id;
         if (!appId) return res.redirect("/dashboard");
 
+        console.log(req.query);
+
         const limit = req.query.limit ? Number(req.query.limit) : 25;
         const page = req.query.page ? Number(req.query.page) : 1;
+        const sort = req.query.sort
+            ? (req.query.sort as "asc" | "desc")
+            : "desc";
 
-        const data = await waitlist
-            .find()
-            .where("app", appId)
-            // .limit(limit)
-            // .skip(limit * (page - 1))
-            .populate("app", "_id");
+        const [data, totalCount] = await Promise.all([
+            waitlist
+                .find()
+                .where("app", appId)
+                .limit(limit)
+                .skip(limit * page)
+                .populate("app", "_id")
+                .sort({ createdAt: sort }),
+            waitlist.aggregate([
+                { $match: { app: new ObjectId(appId) } },
+                { $count: "number" },
+            ]),
+        ]);
 
         res.status(200).json({
             status: "success",
             count: data.length,
+            totalCount: totalCount[0].number,
             data,
         });
     } catch (error) {
