@@ -86,8 +86,6 @@ export const getAppWaitlistData = async (
         const appId = req.params.id;
         if (!appId) return res.redirect("/dashboard");
 
-        console.log(req.query);
-
         const limit = req.query.limit ? Number(req.query.limit) : 25;
         const page = req.query.page ? Number(req.query.page) : 1;
         const sort = req.query.sort
@@ -113,6 +111,68 @@ export const getAppWaitlistData = async (
             count: data.length,
             totalCount: totalCount[0].number,
             data,
+        });
+    } catch (error) {
+        console.error(error);
+        next(new AppError("Unhandled Exception", 500));
+    }
+};
+
+export const waitlistOverviewStats = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const appId = req.params.appId;
+        console.log(appId);
+
+        const [appStatus, totalWaitlistUsers, chartData] = await Promise.all([
+            application.aggregate([
+                { $match: { _id: new ObjectId(appId) } },
+                {
+                    $project: {
+                        isListening: 1,
+                    },
+                },
+            ]),
+            waitlist.aggregate([
+                {
+                    $match: {
+                        app: new ObjectId(appId),
+                        isActive: true,
+                    },
+                },
+                { $count: "number" },
+            ]),
+            waitlist.aggregate([
+                {
+                    $addFields: {
+                        date: {
+                            $dateToString: {
+                                format: "%Y-%m-%d",
+                                date: "$createdAt",
+                            },
+                        },
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$date", // Group by the extracted date
+                        value: { $sum: 1 }, // Count the number of documents
+                    },
+                },
+                {
+                    $sort: { _id: 1 }, // Sort by date (optional)
+                },
+            ]),
+        ]);
+
+        res.status(200).json({
+            status: "success",
+            isListening: appStatus[0].isListening,
+            totalWaitlistUsers: totalWaitlistUsers[0].number,
+            chartData,
         });
     } catch (error) {
         console.error(error);

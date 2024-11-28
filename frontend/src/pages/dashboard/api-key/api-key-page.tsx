@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Clipboard, RefreshCcw } from "lucide-react";
+import { ArrowLeft, Clipboard, RefreshCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import RegenerateAPIKeyModal from "./regenerate-api-key-modal";
 import { useQuery } from "@tanstack/react-query";
@@ -9,6 +9,7 @@ import { API_URL } from "@/services";
 import { useAuth } from "@clerk/clerk-react";
 import { IUserDocument } from "@/types/user-types";
 import { toast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 type resMe = {
     status: string;
@@ -44,7 +45,22 @@ const ApiKeyPage = () => {
     };
 
     return (
-        <section className="bg-white min-h-[90dvh]">
+        <section className="bg-white min-h-[90dvh] flex flex-col">
+            <div className="border-b-[1px] border-black border-opacity-10 ">
+                <div className=" max-w-4xl mx-auto px-8 py-8 lg:px-0 flex justify-between">
+                    <div className="flex gap-2 items-center">
+                        <Link to="/dashboard">
+                            <Button variant="ghost" size="icon">
+                                <ArrowLeft className="size-4" />
+                            </Button>
+                        </Link>
+                        <h1 className="text-lg font-semibold font-poppins my-auto">
+                            Authorization Header
+                        </h1>
+                    </div>
+                    <div className="flex "></div>
+                </div>
+            </div>
             <div className="px-8 lg:px-0 py-10 lg:py-16  max-w-4xl mx-auto flex flex-col gap-8">
                 <Card className="">
                     <h1 className="font-poppins font-semibold text-base">
