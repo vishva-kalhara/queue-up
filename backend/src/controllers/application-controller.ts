@@ -7,6 +7,9 @@ import userSchema from "../schemas/user";
 import { IApplicationDoc } from "../types/application-types";
 import user from "../schemas/user";
 import mongoose from "mongoose";
+import application from "../schemas/application";
+import waitlist from "../schemas/waitlist";
+const ObjectId = mongoose.Types.ObjectId;
 
 export const getMyApplications = async (
     req: Request,
@@ -144,13 +147,85 @@ export const updateApplication = async (
     }
 };
 
-export const deleteApplication = (
+export const deleteApplication = async (
     req: Request,
     res: Response,
     next: NextFunction
 ) => {
-    res.status(200).json({
-        success: "fail",
-        message: "(DELETE) /:id endpoint is under construction.",
-    });
+    try {
+        const { id } = req.params;
+
+        const app = await application.findById(id);
+        if (!app) return next(new AppError("App Not Found!", 404));
+
+        await application.findByIdAndDelete(id);
+
+        res.status(204).json({
+            status: "success",
+        });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
+};
+
+export const appOverviewStats = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const { id } = req.params;
+
+        const [appStatus, totalWaitlistUsers, chartData] = await Promise.all([
+            application.aggregate([
+                { $match: { _id: new ObjectId(id) } },
+                {
+                    $project: {
+                        isListening: 1,
+                    },
+                },
+            ]),
+            waitlist.aggregate([
+                {
+                    $match: {
+                        app: new ObjectId(id),
+                        isActive: true,
+                    },
+                },
+                { $count: "number" },
+            ]),
+            waitlist.aggregate([
+                {
+                    $addFields: {
+                        date: {
+                            $dateToString: {
+                                format: "%Y-%m-%d",
+                                date: "$createdAt",
+                            },
+                        },
+                    },
+                },
+                {
+                    $group: {
+                        _id: "$date", // Group by the extracted date
+                        value: { $sum: 1 }, // Count the number of documents
+                    },
+                },
+                {
+                    $sort: { _id: 1 }, // Sort by date (optional)
+                },
+            ]),
+        ]);
+
+        res.status(200).json({
+            status: "success",
+            isListening: appStatus[0].isListening,
+            totalWaitlistUsers: totalWaitlistUsers[0]?.number || 0,
+            chartData,
+        });
+    } catch (error) {
+        console.error(error);
+        next(new AppError("Unhandled Exception", 500));
+    }
 };

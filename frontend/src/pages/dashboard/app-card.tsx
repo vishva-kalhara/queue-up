@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Database, Pause, Play } from "lucide-react";
+import { ArrowRight, Clock, Database } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { cn } from "@/lib/utils.ts";
@@ -29,12 +29,8 @@ export const DashboardAppCard = ({ app }: { app: IApplicationDoc }) => {
                         Overview <ArrowRight className="size-4" />
                     </Button>
                 </Link>
-                <Button className="w-10" variant="outline" size="sm">
-                    {app.isListening ? (
-                        <Play className="size-4 fill-black" />
-                    ) : (
-                        <Pause className="size-4 fill-black" />
-                    )}
+                <Button className="text-gray-500" variant="ghost" size="sm">
+                    {app.isListening ? <>Listening...</> : <>Paused</>}
                 </Button>
             </div>
         </div>

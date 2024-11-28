@@ -1,4 +1,5 @@
 import {
+    appOverviewStats,
     createApplication,
     deleteApplication,
     getMyApplications,
@@ -14,6 +15,7 @@ applicationRouter.use(protect);
 
 applicationRouter.route("/my-apps").get(getMyApplications);
 applicationRouter.route("/").post(createApplication);
+applicationRouter.route("/overview-stats/:id").get(appOverviewStats);
 
 // Forward request to waitlist router
 applicationRouter.use("/:id/app-waitlist", waitlistRouter);

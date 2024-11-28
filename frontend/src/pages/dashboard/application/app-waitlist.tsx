@@ -57,9 +57,7 @@ const AppWaitlist = () => {
         ],
         queryFn: async () => {
             return await axios.get(
-                `${API_URL}/applications/${appId}/app-waitlist?
-                page=${pagination.pageIndex}
-                &limit=${pagination.pageSize}&sort=${sort}`,
+                `${API_URL}/applications/${appId}/app-waitlist?page=${pagination.pageIndex}&limit=${pagination.pageSize}&sort=${sort}`,
                 {
                     headers: {
                         Authorization: `Bearer ${await getToken()}`,
