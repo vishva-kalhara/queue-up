@@ -9,6 +9,7 @@ import user from "../schemas/user";
 import mongoose from "mongoose";
 import application from "../schemas/application";
 import waitlist from "../schemas/waitlist";
+import { formatDistance, formatDistanceToNow } from "date-fns";
 const ObjectId = mongoose.Types.ObjectId;
 
 export const getMyApplications = async (
@@ -23,53 +24,60 @@ export const getMyApplications = async (
             externalId: userId,
         });
 
-        // const [apps] = await Promise.all([
         const apps = await ApplicationSchema.find()
             .where("user")
             .equals(logged?.id)
-            .populate("user", "id");
+            .populate("user", "id")
+            .select("isListening");
 
-        // const updatedApps: IMyApp[] = [];
+        const updatedApps: IMyApp[] = [];
 
-        // await Promise.all(
-        //     apps.map(async (app) => {
-        //         const newApp = await waitlist.aggregate([
-        //             {
-        //                 $match: {
-        //                     app: new ObjectId(app.id),
-        //                     isActive: true,
-        //                 },
-        //             },
+        await Promise.all(
+            apps.map(async (app) => {
+                const appId: string = app.id;
+                const [userCount, lastReq] = await Promise.all([
+                    waitlist.aggregate([
+                        {
+                            $match: {
+                                app: new ObjectId(appId),
+                                isActive: true,
+                            },
+                        },
+                        { $count: "number" },
+                    ]),
+                    waitlist.aggregate([
+                        {
+                            $match: {
+                                app: new ObjectId(appId),
+                            },
+                        },
+                        { $sort: { createdAt: -1 } },
+                        { $project: { createdAt: 1 } },
+                    ]),
+                ]);
 
-        //             { $count: "number" },
-        //         ]);
-        //         updatedApps.push({
-        //             ...app,
-        //             userCount: 4,
-        //         });
-        //         // app.userCount = newApp[0].number ? newApp[0].number : 0; // Handle case if no results are found
-        //         // console.log(newApp);
-        //         return app;
-        //     })
-        // );
-        // waitlist.aggregate([
-        //     {
-
-        //         $match: {
-        //             app: new ObjectId(id),
-        //             isActive: true,
-        //         },
-        //     },
-        //     { $count: "number" },
-        // ]),
-        // ]);
-
-        // console.log(updatedApps);
+                updatedApps.push({
+                    _id: app._id,
+                    isListening: app.isListening,
+                    userCount: userCount[0]?.number || 0, // Ensure optional chaining to avoid undefined errors
+                    lastReq: lastReq.length
+                        ? formatDistance(
+                              new Date(lastReq[0].createdAt),
+                              new Date(),
+                              {
+                                  addSuffix: true,
+                              }
+                          )
+                        : "No requests found", // Handle case with no last request
+                    isActive: app.isActive,
+                });
+            })
+        );
 
         res.status(200).json({
             success: "success",
-            // count: apps.length,
-            // apps: updatedApps,
+            count: updatedApps.length,
+            apps: updatedApps,
         });
     } catch (error) {
         console.log(error);
