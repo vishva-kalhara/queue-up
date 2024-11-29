@@ -4,7 +4,7 @@ import ApplicationSchema from "../schemas/application";
 import { randomBytes } from "crypto";
 import { getAuth } from "@clerk/express";
 import userSchema from "../schemas/user";
-import { IApplicationDoc } from "../types/application-types";
+import { IApplicationDoc, IMyApp } from "../types/application-types";
 import user from "../schemas/user";
 import mongoose from "mongoose";
 import application from "../schemas/application";
@@ -23,15 +23,53 @@ export const getMyApplications = async (
             externalId: userId,
         });
 
+        // const [apps] = await Promise.all([
         const apps = await ApplicationSchema.find()
             .where("user")
             .equals(logged?.id)
             .populate("user", "id");
 
+        // const updatedApps: IMyApp[] = [];
+
+        // await Promise.all(
+        //     apps.map(async (app) => {
+        //         const newApp = await waitlist.aggregate([
+        //             {
+        //                 $match: {
+        //                     app: new ObjectId(app.id),
+        //                     isActive: true,
+        //                 },
+        //             },
+
+        //             { $count: "number" },
+        //         ]);
+        //         updatedApps.push({
+        //             ...app,
+        //             userCount: 4,
+        //         });
+        //         // app.userCount = newApp[0].number ? newApp[0].number : 0; // Handle case if no results are found
+        //         // console.log(newApp);
+        //         return app;
+        //     })
+        // );
+        // waitlist.aggregate([
+        //     {
+
+        //         $match: {
+        //             app: new ObjectId(id),
+        //             isActive: true,
+        //         },
+        //     },
+        //     { $count: "number" },
+        // ]),
+        // ]);
+
+        // console.log(updatedApps);
+
         res.status(200).json({
             success: "success",
-            count: apps.length,
-            apps,
+            // count: apps.length,
+            // apps: updatedApps,
         });
     } catch (error) {
         console.log(error);

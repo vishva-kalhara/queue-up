@@ -9,3 +9,13 @@ export interface IApplicationDoc extends mongoose.Document {
     isListening: boolean;
     isActive: boolean;
 }
+
+export interface IMyApp {
+    userCount: number;
+    _id: string;
+    user: String | IUserDocument | mongoose.Schema.Types.ObjectId;
+    title: string;
+    appSecretKey: string;
+    isListening: boolean;
+    isActive: boolean;
+}
