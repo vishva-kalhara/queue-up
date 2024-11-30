@@ -36,7 +36,8 @@ const RegenerateAPIKeyModal = ({ isOpen, setIsOpen }: props) => {
             queryClient.invalidateQueries({ queryKey: ["user-api-key"] });
             setIsOpen(false);
             toast({
-                description: "User API Key regenerated.",
+                variant: "success",
+                title: "User API Key regenerated.",
             });
         },
         onError: (err) => {

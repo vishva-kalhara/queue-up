@@ -1,6 +1,6 @@
 import { DashboardAppCard } from "@/pages/dashboard/app-card.tsx";
 import { API_URL } from "@/services";
-import { IApplicationDoc } from "@/types/application-types";
+import { IMyApp } from "@/types/application-types";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
@@ -12,7 +12,7 @@ import LoadingSpinner from "@/components/loading-spinner";
 interface Res {
     success: "fail" | "success";
     count: number;
-    apps: IApplicationDoc[];
+    apps: IMyApp[];
 }
 
 const DashboardPage = () => {

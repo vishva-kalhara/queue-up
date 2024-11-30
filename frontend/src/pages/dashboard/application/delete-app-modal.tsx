@@ -32,7 +32,7 @@ const DeleteAppModal = ({ isOpen, setIsOpen }: props) => {
             setIsOpen(false);
             toast({
                 variant: "destructive",
-                description: "Application deleted successfully.",
+                title: "Application deleted successfully.",
             });
             navigate("/dashboard", { replace: true });
         },

@@ -28,7 +28,7 @@ export const getMyApplications = async (
             .where("user")
             .equals(logged?.id)
             .populate("user", "id")
-            .select("isListening");
+            .select("isListening title");
 
         const updatedApps: IMyApp[] = [];
 
@@ -70,6 +70,7 @@ export const getMyApplications = async (
                           )
                         : "No requests found", // Handle case with no last request
                     isActive: app.isActive,
+                    title: app.title,
                 });
             })
         );

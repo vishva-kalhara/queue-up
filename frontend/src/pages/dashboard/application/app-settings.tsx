@@ -17,7 +17,8 @@ const AppSettings = () => {
     const copySecret = () => {
         navigator.clipboard.writeText(app.appSecretKey);
         toast({
-            description: "App Secret copied to clipboard.",
+            variant: "success",
+            title: "App Secret copied to clipboard.",
         });
     };
 

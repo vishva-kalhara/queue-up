@@ -2,9 +2,9 @@ import { ArrowRight, Clock, Database } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { cn } from "@/lib/utils.ts";
-import { IApplicationDoc } from "@/types/application-types";
+import { IMyApp } from "@/types/application-types";
 
-export const DashboardAppCard = ({ app }: { app: IApplicationDoc }) => {
+export const DashboardAppCard = ({ app }: { app: IMyApp }) => {
     return (
         <div
             className={cn(
@@ -16,11 +16,11 @@ export const DashboardAppCard = ({ app }: { app: IApplicationDoc }) => {
             <div className="flex flex-col gap-1 mt-4">
                 <p className="text-gray-500 flex gap-2 items-center">
                     <Clock className="size-4" />
-                    N/A
+                    Last request {app.lastReq}
                 </p>
                 <p className="text-gray-500 flex gap-2 items-center">
                     <Database className="size-4" />
-                    N/A
+                    Total {app.userCount} users
                 </p>
             </div>
             <div className="flex justify-between mt-8">
@@ -29,9 +29,6 @@ export const DashboardAppCard = ({ app }: { app: IApplicationDoc }) => {
                         Overview <ArrowRight className="size-4" />
                     </Button>
                 </Link>
-                <Button className="text-gray-500" variant="ghost" size="sm">
-                    {app.isListening ? <>Listening...</> : <>Paused</>}
-                </Button>
             </div>
         </div>
     );

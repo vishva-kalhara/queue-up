@@ -40,7 +40,8 @@ const ApiKeyPage = () => {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`Bearer ${userApiKey}`);
         toast({
-            description: "Authorization header copied to clipboard.",
+            variant: "success",
+            title: "Authorization header copied to clipboard.",
         });
     };
 

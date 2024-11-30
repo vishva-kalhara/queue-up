@@ -38,7 +38,8 @@ const RegenerateAppSecretModal = ({ isOpen, setIsOpen }: props) => {
             queryClient.invalidateQueries({ queryKey: ["app"] });
             setIsOpen(false);
             toast({
-                description: "App Secret regenerated.",
+                variant: "success",
+                title: "App Secret regenerated.",
             });
         },
         onError: (err) => {

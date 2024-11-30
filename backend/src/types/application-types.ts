@@ -13,6 +13,7 @@ export interface IApplicationDoc extends mongoose.Document {
 export interface IMyApp {
     userCount: number;
     _id: string;
+    title: string;
     isListening: boolean;
     isActive: boolean;
     lastReq: string;
