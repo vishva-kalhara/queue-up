@@ -39,7 +39,7 @@ const ChangeAppStateModal = ({ isOpen, setIsOpen, isListening }: props) => {
             });
             setIsOpen(false);
             toast({
-                variant: isListening ? "destructive" : "default",
+                variant: isListening ? "destructive" : "success",
                 title: `App is ${
                     isListening
                         ? "no longer listening to incomming requests."

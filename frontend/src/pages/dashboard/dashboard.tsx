@@ -1,6 +1,6 @@
 import { DashboardAppCard } from "@/pages/dashboard/app-card.tsx";
 import { API_URL } from "@/services";
-import { IApplicationDoc } from "@/types/application-types";
+import { IMyApp } from "@/types/application-types";
 import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
@@ -12,7 +12,7 @@ import LoadingSpinner from "@/components/loading-spinner";
 interface Res {
     success: "fail" | "success";
     count: number;
-    apps: IApplicationDoc[];
+    apps: IMyApp[];
 }
 
 const DashboardPage = () => {
@@ -38,7 +38,7 @@ const DashboardPage = () => {
                         onClick={() => {
                             setIsOpen(true);
                         }}
-                        className="border-[1px] border-black/10 py-16 rounded-lg flex flex-col bg-[#fafafa]"
+                        className="border-[1px] border-black/10 py-16 rounded-lg flex flex-col bg-[#fafafa] hover:cursor-pointer"
                     >
                         <div className="flex flex-col mx-auto gap-4">
                             <div className="flex mx-auto">

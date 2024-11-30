@@ -41,6 +41,26 @@ export const addUserToWaitlist = async (
                 new AppError(`Invalid 'appSecretKey' or app not found!`, 404)
             );
 
+        const hasUserWaitlist = await waitlist.aggregate([
+            {
+                $match: {
+                    app: {
+                        oId: app._id,
+                    },
+                    email: {
+                        oId: data.email,
+                    },
+                },
+            },
+            {
+                $project: { _id: 1 },
+            },
+        ]);
+        if (hasUserWaitlist)
+            return next(
+                new AppError(`You are already registered on the waitlist!`, 400)
+            );
+
         const filteredObj = {
             email: undefined,
             firstName: undefined,

@@ -34,7 +34,10 @@ const DashboardNav = () => {
                     </Button>
                     {!isMobile && (
                         <>
-                            <Link to="/github">
+                            <Link
+                                to="https://github.com/vishva-kalhara/queue-up"
+                                target="_blank"
+                            >
                                 <Button
                                     size="sm"
                                     variant={"outline"}
@@ -42,15 +45,6 @@ const DashboardNav = () => {
                                 >
                                     <HeartIcon className="fill-red-500 stroke-0" />
                                     Contribute
-                                </Button>
-                            </Link>
-                            <Link to="/dashboard/docs">
-                                <Button
-                                    size="sm"
-                                    variant={"outline"}
-                                    className="h-8"
-                                >
-                                    Docs
                                 </Button>
                             </Link>
                         </>
