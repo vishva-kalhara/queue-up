@@ -38,7 +38,7 @@ const DashboardPage = () => {
                         onClick={() => {
                             setIsOpen(true);
                         }}
-                        className="border-[1px] border-black/10 py-16 rounded-lg flex flex-col bg-[#fafafa]"
+                        className="border-[1px] border-black/10 py-16 rounded-lg flex flex-col bg-[#fafafa] hover:cursor-pointer"
                     >
                         <div className="flex flex-col mx-auto gap-4">
                             <div className="flex mx-auto">

@@ -9,26 +9,31 @@ export const syncUserWithDB = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId: externalId } = getAuth(req);
+    try {
+        const { userId: externalId } = getAuth(req);
 
-    let loggedUser = await userSchema.findOne({ externalId });
+        let loggedUser = await userSchema.findOne({ externalId });
 
-    if (!loggedUser) {
-        const apiKey = randomBytes(16 / 2).toString("hex");
+        if (!loggedUser) {
+            const apiKey = randomBytes(16 / 2).toString("hex");
 
-        const user = await clerkClient.users.getUser(externalId!);
+            const user = await clerkClient.users.getUser(externalId!);
 
-        loggedUser = await userSchema.create({
-            email: user.emailAddresses[0].emailAddress,
-            externalId,
-            apiKey,
-            isActive: true,
+            loggedUser = await userSchema.create({
+                email: user.emailAddresses[0].emailAddress,
+                externalId,
+                apiKey,
+                isActive: true,
+            });
+        }
+
+        res.status(200).json({
+            isSynced: loggedUser ? true : false,
         });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
     }
-
-    res.status(200).json({
-        isSynced: loggedUser ? true : false,
-    });
 };
 
 export const getMe = async (
@@ -36,12 +41,17 @@ export const getMe = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId: externalId } = getAuth(req);
+    try {
+        const { userId: externalId } = getAuth(req);
 
-    const loggedUser = await userSchema.findOne({ externalId });
-    // if (!loggedUser) return res.redirect("/sign-in");
+        const loggedUser = await userSchema.findOne({ externalId });
+        // if (!loggedUser) return res.redirect("/sign-in");
 
-    res.status(200).json({ status: "success", user: loggedUser });
+        res.status(200).json({ status: "success", user: loggedUser });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
 };
 
 export const updateMe = async (
@@ -49,21 +59,26 @@ export const updateMe = async (
     res: Response,
     next: NextFunction
 ) => {
-    const { userId: externalId } = getAuth(req);
+    try {
+        const { userId: externalId } = getAuth(req);
 
-    const loggedUser = await userSchema.findOne({ externalId });
+        const loggedUser = await userSchema.findOne({ externalId });
 
-    const newUser = await userSchema.findByIdAndUpdate(
-        loggedUser?._id,
-        {
-            apiKey: req.body.apiKey,
-        },
-        {
-            new: true,
-        }
-    );
+        const newUser = await userSchema.findByIdAndUpdate(
+            loggedUser?._id,
+            {
+                apiKey: req.body.apiKey,
+            },
+            {
+                new: true,
+            }
+        );
 
-    console.log();
+        console.log();
 
-    res.status(200).json({ status: "success", user: newUser });
+        res.status(200).json({ status: "success", user: newUser });
+    } catch (error) {
+        console.error(error);
+        return next(new AppError("Unhandled exception occured!", 500));
+    }
 };

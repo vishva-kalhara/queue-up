@@ -28,7 +28,8 @@ export const getMyApplications = async (
             .where("user")
             .equals(logged?.id)
             .populate("user", "id")
-            .select("isListening title");
+            .select("isListening title")
+            .sort({ createdAt: "desc" });
 
         const updatedApps: IMyApp[] = [];
 

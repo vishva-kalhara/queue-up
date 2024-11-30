@@ -6,6 +6,7 @@ import { useState } from "react";
 import RegenerateAppSecretModal from "./regenerate-app-secret-modal";
 import { toast } from "@/hooks/use-toast";
 import DeleteAppModal from "./delete-app-modal";
+import { Link } from "react-router-dom";
 
 const AppSettings = () => {
     const app = useApplication();
@@ -34,7 +35,6 @@ const AppSettings = () => {
                         requests and managing waitlist data securely.
                     </p>
                     <div className="flex gap-2 mt-6">
-                        {/* <Input type="password" className="h-8" disabled value="5454" /> */}
                         <Button size="sm" onClick={() => copySecret()}>
                             <Clipboard className="size-4" />
                             Copy Secret
@@ -54,13 +54,11 @@ const AppSettings = () => {
                         <h1 className="font-poppins font-semibold text-base ">
                             Authorization Header
                         </h1>
-                        <Button
-                            className="size-8"
-                            variant="outline"
-                            onClick={() => copySecret()}
-                        >
-                            <ArrowRight className="size-4" />
-                        </Button>
+                        <Link to="/dashboard/api-key">
+                            <Button className="size-8" variant="outline">
+                                <ArrowRight className="size-4" />
+                            </Button>
+                        </Link>
                     </div>
                 </Card>
                 <Card>

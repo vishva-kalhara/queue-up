@@ -16,7 +16,7 @@ export const DashboardAppCard = ({ app }: { app: IMyApp }) => {
             <div className="flex flex-col gap-1 mt-4">
                 <p className="text-gray-500 flex gap-2 items-center">
                     <Clock className="size-4" />
-                    Last request {app.lastReq}
+                    {app.userCount != 0 && "Last request"} {app.lastReq}
                 </p>
                 <p className="text-gray-500 flex gap-2 items-center">
                     <Database className="size-4" />
