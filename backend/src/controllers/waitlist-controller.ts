@@ -56,7 +56,7 @@ export const addUserToWaitlist = async (
                 $project: { _id: 1 },
             },
         ]);
-        if (hasUserWaitlist)
+        if (hasUserWaitlist.length != 0)
             return next(
                 new AppError(`You are already registered on the waitlist!`, 400)
             );
