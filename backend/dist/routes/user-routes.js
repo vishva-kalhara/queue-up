@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_controller_1 = require("../controllers/user-controller");
+const protect_1 = require("../middlewares/protect");
+const userRoutes = (0, express_1.Router)();
+userRoutes.get("/sync-user-with-db", user_controller_1.syncUserWithDB);
+userRoutes.use(protect_1.protect);
+userRoutes.get("/me", user_controller_1.getMe);
+userRoutes.patch("/update-me", user_controller_1.updateMe);
+exports.default = userRoutes;
