@@ -5,7 +5,7 @@
     "scripts": {
         "build": "tsc --build",
         "dev": "nodemon ./src/index.ts",
-        "start": "nodemon ./src/index.ts"
+        "start": "npx nodemon ./src/index.ts"
     },
     "include": [
         "./src/**/*",
