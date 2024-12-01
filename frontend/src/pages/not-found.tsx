@@ -1,29 +1,39 @@
 import Heading from "@/components/heading";
 import { NavBar } from "@/components/nav-bar";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
+    const navigate = useNavigate();
+
     return (
         <>
-            <NavBar />
+            <NavBar>
+                <Link to="/dashboard">
+                    <Button className="" variant={"default"}>
+                        Dashboard
+                        <ArrowUpRight className="size-4" />
+                    </Button>
+                </Link>
+            </NavBar>
             <div className="w-full my-10 flex justify-center py-20 flex-col">
                 {/* <LoadingSpinner /> */}
-                <Heading className="text-center mt-10">
-                    Creating your Account...
+                <Heading className="text-center mt-10 sm:text-5xl">
+                    Oops!
                 </Heading>
                 <p className="text-sm/6 text-gray-500 font-medium max-w-prose  text-center mx-auto mt-4">
-                    Just a moment while we set things up for you.
+                    We couldn't find the page you were looking for.
                 </p>
-                <div className="mx-auto flex mt-20">
-                    {/* <Button
-                onClick={() => {
-                    mutate();
-                }}
-                disabled={isPending}
-            >
-                Trigger
-            </Button> */}
+                <div className="text-center mt-10">
+                    <Button
+                        variant="default"
+                        onClick={() => navigate(-1)}
+                        className="items-center"
+                    >
+                        <ArrowLeft /> Go Back
+                    </Button>
                 </div>
-                {/* {JSON.stringify(data)} */}
             </div>
         </>
     );
