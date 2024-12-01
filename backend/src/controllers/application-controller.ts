@@ -99,8 +99,6 @@ export const getOneApplication = async (
         });
         const { id } = req.params;
 
-        // console.log(loggedUser);
-
         const app = await ApplicationSchema.findOne()
             .where("user", loggedUser?.id)
             .where("_id", id)
@@ -125,8 +123,6 @@ export const createApplication = async (
 ) => {
     try {
         const { userId: externalId } = getAuth(req);
-
-        console.log(externalId);
 
         if (!req.body.title)
             return next(new AppError("Title is required!", 400));
@@ -225,8 +221,6 @@ export const appOverviewStats = async (
     try {
         const { id } = req.params;
 
-        console.log(id);
-
         const [appStatus, totalWaitlistUsers, chartData] = await Promise.all([
             application.aggregate([
                 { $match: { _id: new ObjectId(id) } },
@@ -267,8 +261,6 @@ export const appOverviewStats = async (
                 },
             ]),
         ]);
-
-        console.log(totalWaitlistUsers);
 
         res.status(200).json({
             status: "success",

@@ -74,8 +74,6 @@ export const updateMe = async (
             }
         );
 
-        console.log();
-
         res.status(200).json({ status: "success", user: newUser });
     } catch (error) {
         console.error(error);

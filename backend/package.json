@@ -4,7 +4,8 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc --build",
-        "dev": "nodemon ./src/index.ts"
+        "dev": "nodemon ./src/index.ts",
+        "start": "tsc --build && cd ./dist && node index.js"
     },
     "include": [
         "./src/**/*",
