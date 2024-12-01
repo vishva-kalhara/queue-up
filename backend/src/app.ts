@@ -18,14 +18,14 @@ export function createApp() {
     const app = express();
 
     const corsOptions = {
-        origin: "http://localhost:5173", // Replace this with the exact origin of your frontend
+        // origin: "http://localhost:5173", // Replace this with the exact origin of your frontend
         credentials: true, // Allow credentials (cookies, headers, etc.)
     };
     app.use(cors(corsOptions));
     app.options("*", cors());
 
     // if (process.env.NODE_ENV === "development") {
-    app.use(morgan("dev"));
+    // app.use(morgan("dev"));
     // console.log()
     // }
 
@@ -35,13 +35,8 @@ export function createApp() {
 
     app.use(clerkMiddleware());
 
-    app.get("/api/v1/test", requireAuth(), async (req, res) => {
-        const { userId } = getAuth(req);
-
-        // if(!userId) return res.status(404).json({ status: 'fail' });
-
-        const user = await clerkClient.users.getUser(userId!);
-        res.status(200).json({ user });
+    app.get("/", async (req, res) => {
+        res.status(200).send("API is up and running...");
     });
 
     app.use("/api/v1/users", userRoutes);

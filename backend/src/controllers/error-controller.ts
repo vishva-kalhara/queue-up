@@ -1,10 +1,10 @@
-import { Response } from 'express';
-import AppError from '../utils/appError';
+import { Response } from "express";
+import AppError from "../utils/appError";
 import {
     duplicateDocumentError,
     errorType,
     mongooseValidationError,
-} from '../types/errorTypes';
+} from "../types/errorTypes";
 
 export const handleDuplicateDocuments = (err: duplicateDocumentError) => {
     const matchResult = err.errorResponse.errmsg.match(
@@ -26,11 +26,11 @@ export const handleValidationErrors = (err: errorType) => {
 };
 
 export const handleInvalidObjectIDs = () => {
-    return new AppError('No document found with that ID', 404);
+    return new AppError("No document found with that ID", 404);
 };
 
 export const handleJWTMalformed = () => {
-    return new AppError('Please sign in to the application!', 401);
+    return new AppError("Please sign in to the application!", 401);
 };
 
 export const sendErrorDev = (err: AppError, res: Response) => {
@@ -43,7 +43,6 @@ export const sendErrorDev = (err: AppError, res: Response) => {
 };
 
 export const sendErrorProd = (err: AppError, res: Response) => {
-    // console.log(err);
     if (err.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
@@ -51,11 +50,11 @@ export const sendErrorProd = (err: AppError, res: Response) => {
             data: err.errorBody || undefined,
         });
     } else {
-        console.error('Error 💥💥', err);
+        console.error("Error 💥💥", err);
         res.status(500).json({
-            status: 'error',
+            status: "error",
             message:
-                err.message || 'Something went wrong. Please try again later.',
+                err.message || "Something went wrong. Please try again later.",
         });
     }
 };
