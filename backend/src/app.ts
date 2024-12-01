@@ -36,7 +36,7 @@ export function createApp() {
     app.use(clerkMiddleware());
 
     app.get("/", async (req, res) => {
-        res.status(200).send("API is up and running...");
+        res.status(200).json({ message: "API is up and running..." });
     });
 
     app.use("/api/v1/users", userRoutes);
