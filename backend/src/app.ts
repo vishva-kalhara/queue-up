@@ -24,10 +24,10 @@ export function createApp() {
     app.use(cors(corsOptions));
     app.options("*", cors());
 
-    // if (process.env.NODE_ENV === "development") {
-    // app.use(morgan("dev"));
-    // console.log()
-    // }
+    if (process.env.NODE_ENV === "development") {
+        app.use(morgan("dev"));
+        // console.log()
+    }
 
     app.use(express.json({ limit: "10kb" }));
 
