@@ -37,6 +37,10 @@ const ApplicationPage = () => {
     });
 
     useEffect(() => {
+        document.title = `Queue Up ${
+            data?.data.app.title && "| " + data?.data.app.title
+        }`;
+
         if (!isFetching && isSuccess) setAppData(data?.data.app);
     }, [data, isFetching, isSuccess]);
 

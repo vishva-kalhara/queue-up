@@ -11,6 +11,8 @@ const DashboardLayout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = "Queue Up | Dashboard";
+
         // isSignedIn can be undefined
         if (isSignedIn == false) navigate("/sign-in");
     }, [isSignedIn]);

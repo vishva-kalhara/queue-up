@@ -4,9 +4,14 @@ import { NavBar } from "@/components/nav-bar";
 import ShinyButton from "@/components/shiny-button";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+    useEffect(() => {
+        document.title = "Queue Up | Headless waitlist management";
+    }, []);
+
     return (
         <>
             <NavBar>

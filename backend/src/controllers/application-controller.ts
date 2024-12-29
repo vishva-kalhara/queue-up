@@ -241,6 +241,11 @@ export const appOverviewStats = async (
             ]),
             waitlist.aggregate([
                 {
+                    $match: {
+                        app: new ObjectId(id),
+                    },
+                },
+                {
                     $addFields: {
                         date: {
                             $dateToString: {
