@@ -7,7 +7,8 @@ const EmptyAppState = () => {
     const codeSnippet = `await fetch('${API_URL}/waitlist', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer YOUR_API_KEY'
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_API_KEY"
         },
         body: JSON.stringify(
             {
